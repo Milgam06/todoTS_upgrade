@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as S from "./styled";
 
@@ -16,6 +16,9 @@ export interface ToDoProps {
 const STORAGE_TODO_KEY = "todoPlans";
 
 export const ToDoPage: React.FC = () => {
+  useEffect(() => {
+    console.log(localStorage.getItem("todoPlans"));
+  }, []);
   const { register, watch, setValue } = useForm<ToDoFormValue>();
   const [toDos, setToDos] = useState<ToDoProps>({});
   const [compelete, setCompelete] = useState<boolean>(false);
@@ -44,11 +47,27 @@ export const ToDoPage: React.FC = () => {
     console.log(newToDos);
   };
 
+  useEffect(() => {
+    const plans: any = localStorage.getItem(STORAGE_TODO_KEY);
+    const plan_arr = JSON.parse(plans);
+    setToDos(plan_arr);
+  }, []);
+
   return (
     <S.ToDoWrapper>
       <S.ToDoContainer>
         <S.ToDoTitle>TODOLIST</S.ToDoTitle>
-        <S.ToDoPlans>{localStorage.getItem("todoPlans")}</S.ToDoPlans>
+        <>
+          {toDos === null ? (
+            <S.ToDoPlans>ToDo를 적어보세요!</S.ToDoPlans>
+          ) : (
+            <S.ToDoPlans>
+              {Object.keys(toDos).map((key: string, i) => (
+                <S.ToDoItems>{toDos[key].text}</S.ToDoItems>
+              ))}
+            </S.ToDoPlans>
+          )}
+        </>
         <S.ToDoInputContainer>
           <S.ToDoInput
             placeholder="텍스트를 입력해주세요..."

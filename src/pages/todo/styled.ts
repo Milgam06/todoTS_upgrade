@@ -35,10 +35,19 @@ export const ToDoTitle = styled.h1`
 
 export const ToDoPlans = styled.div`
   width: 100%;
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: ${colors.darkPurple};
-  padding: 1.1rem;
+  font-weight: bold;
+  padding-top: 1.1rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid ${colors.gray};
+  border-top: 1px solid ${colors.gray};
 `;
+export const ToDoItems = styled.div`
+  margin-top: 0.3rem;
+  border: 1px solid ${colors.gray};
+`;
+
 export const ToDoInputContainer = styled.div`
   border-top: 1px solid ${colors.gray};
   padding: 0.4rem 3rem;
